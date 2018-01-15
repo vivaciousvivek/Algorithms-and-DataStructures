@@ -15,25 +15,25 @@ public class DFS {
 
     /*
     * use it to color the vertices, we can also use boolean array here
-    * but these three colors wil be very useful in Dijkstra’s algo
+    * but these three colors will be very useful in Dijkstra’s algo
     */
-    private char visited[];
+    private char[] visited;
 
     /*
     * pi(parent info) array will use to get the parent info after each traversal
     */
-    private int piArray[];
+    private int[] piArray;
 
     /*
     *  Array after applying DFS and storing vertices by their decreasing order of finishing time
     */
-    private static int[] decreasingFinishTimeArray;
+    private int[] decreasingFinishTimeArray;
 
     /*
     * these arrays will be used to store when the vertex is pushed into and popped from stack
     */
-    private int discoverTime[];
-    private int finishTime[];
+    private int[] discoverTime;
+    private int[] finishTime;
 
     private int time = 0;
     private int v = 0;
@@ -46,15 +46,17 @@ public class DFS {
             this.v = this.graph.getV();
             this.visited = new char[this.graph.getV()];
             this.piArray = new int[this.graph.getV()];
-            decreasingFinishTimeArray = new int[v];
+            this.decreasingFinishTimeArray = new int[v];
             this.discoverTime = new int[this.graph.getV()];
             this.finishTime = new int[this.graph.getV()];
-            /*
-            * initialize piArray from the given element
-            */
-            this.piArray[source] = source;
 
-            Arrays.fill(this.visited, 0, this.graph.getV(), VisitingColor.RED.getChar());
+            Arrays.fill(this.visited, VisitingColor.RED.getChar());
+            Arrays.fill(this.piArray, -1);
+
+            /*
+             * initialize piArray from the given element
+             */
+            this.piArray[source] = source;
         } else {
             System.out.println("Please provide the valid graph.");
         }
@@ -64,7 +66,7 @@ public class DFS {
      * First call the DFSTraversal then get this topologically sorted array
      * @return topologically sorted array(descending order of finishing time of visited vertices)
      */
-    public static int[] getDecreasingFinishTimeArray() {
+    public int[] getDecreasingFinishTimeArray() {
         return decreasingFinishTimeArray;
     }
 
@@ -121,9 +123,12 @@ public class DFS {
      * predecessor array to find the tree that is created by visited vertices
      */
     public void printPiArray() {
-        System.out.println("\n");
-        for (int v = 0; v < graph.getV(); v++) {
-            System.out.println("parent of " + v + " is " + piArray[v] + " ********* start: " + discoverTime[v] + " end: " + finishTime[v]);
-        }
+    	StringBuilder sb = new StringBuilder();
+      
+		for (int v = 0; v < graph.getV(); v++) {
+			sb.append("parent of ").append(v).append(" is ").append(piArray[v]).append(" ********* start: ")
+					.append(discoverTime[v]).append(" end: ").append(finishTime[v]);
+			System.out.println(sb);
+		}
     }
 }

@@ -15,14 +15,14 @@ import com.techfirebase.daa.utils.constants.VisitingColor;
 public class BFS {
     /*
     * use it to color the vertices, we can also use boolean array here
-    * but these three colors wil be very useful in Dijkstra’s algo
+    * but these three colors will be very useful in Dijkstra’s algo
     */
-    private char visited[];
+    private char[] visited;
 
     /*
     * pi(parent info) array will use to get the parent info after each traversal
     */
-    private int piArray[];
+    private int[] piArray;
 
     /*
     * Create a queue for BFS
@@ -38,7 +38,8 @@ public class BFS {
             this.visited = new char[this.graph.getV()];
             this.piArray = new int[this.graph.getV()];
 
-            Arrays.fill(this.visited, 0, this.graph.getV(), VisitingColor.RED.getChar());
+            Arrays.fill(this.visited, VisitingColor.RED.getChar());
+            Arrays.fill(this.piArray, -1);
         } else {
             System.out.println("Please provide the valid graph.");
         }
@@ -91,10 +92,12 @@ public class BFS {
         return queue;
     }
 
-    public void printPiArray() {
-        System.out.println("\n");
-        for (int v = 0; v < graph.getV(); v++) {
-            System.out.println("parent of " + v + " is " + piArray[v]);
-        }
-    }
+	public void printPiArray() {
+		StringBuilder sb = new StringBuilder();
+
+		for (int v = 0; v < graph.getV(); v++) {
+			sb.append("parent of ").append(v).append(" is ").append(piArray[v]);
+			System.out.println(sb);
+		}
+	}
 }

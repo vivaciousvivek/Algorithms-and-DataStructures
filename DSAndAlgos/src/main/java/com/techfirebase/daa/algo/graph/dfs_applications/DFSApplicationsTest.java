@@ -1,6 +1,6 @@
 package com.techfirebase.daa.algo.graph.dfs_applications;
 
-import com.techfirebase.daa.ds.advance_ds.graph.AdjacencyList;
+import com.techfirebase.daa.algo.graph.GraphObjects;
 import com.techfirebase.daa.ds.advance_ds.graph.Graph;
 
 /**
@@ -11,35 +11,36 @@ public class DFSApplicationsTest {
 
 	public static void main(String[] args) {
 		StringBuilder sb = new StringBuilder();
-		
-		sb.append("*************Graph Test*************\n");
-		sb.append("\n*************DFS Applications*************\n");
-		sb.append("\n*************Undirected Graph*************\n");
 
-		int V = 5;
-        Graph graph = new Graph(V);
+		sb.append("*************DFS Applications Test*************\n");
+		sb.append("\n*************(((Undirected Graph)))*************\n");
+		// use other graph objects to test more
+		Graph undirectedGraph = GraphObjects.undirectedGraphOne();
+		sb.append(undirectedGraph);
+		System.out.println(sb);
+		sb.delete(0, sb.length());
 
-        AdjacencyList.addEdge(graph, 0, 1);
-        AdjacencyList.addEdge(graph, 0, 4);
-        AdjacencyList.addEdge(graph, 1, 2);
-        AdjacencyList.addEdge(graph, 1, 3);
-        AdjacencyList.addEdge(graph, 1, 4);
-        AdjacencyList.addEdge(graph, 2, 3);
-        AdjacencyList.addEdge(graph, 3, 4);
+		sb.append("\n\n*************Cycle Detection*************\n");
+		System.out.println(sb);
+		sb.delete(0, sb.length());
 
-//        AdjacencyList.addEdge(graph, 1, 0);
-//        AdjacencyList.addEdge(graph, 0, 2);
-//        AdjacencyList.addEdge(graph, 2, 1);
-//        AdjacencyList.addEdge(graph, 0, 3);
-//        AdjacencyList.addEdge(graph, 3, 4);
+		CycleDetectionByDFS cycleDFS = new CycleDetectionByDFS(undirectedGraph);
+		cycleDFS.cycleUtil();
 
-        sb.append(graph);
+		sb.append("\n\n*************(((Directed Graph)))*************\n");
+		// use other graph objects to test more
+		Graph directedGraph = GraphObjects.directedGraphOne();
+		sb.append(directedGraph);
+		System.out.println(sb);
+		sb.delete(0, sb.length());
 
-        sb.append("\n\n*************Cycle Detection*************\n");
-        System.out.println(sb);
-        
-        CycleDetectionByDFS cycleDFS = new CycleDetectionByDFS(graph);
-        cycleDFS.cycleUtil();
+		sb.append("\n\n*************Cycle Detection*************\n");
+		System.out.println(sb);
+		sb.delete(0, sb.length());
+
+		CycleDetectionByDFS cycleDFS1 = new CycleDetectionByDFS(directedGraph);
+		cycleDFS1.cycleUtil();
+
 	}
 
 }
