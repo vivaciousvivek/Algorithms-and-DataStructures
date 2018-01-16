@@ -1,5 +1,6 @@
 package com.techfirebase.daa.ds.advance_ds.disjointset;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -35,6 +36,8 @@ public class DisjointSet {
 	 * to O(logn)
 	 */
 	private static int[] rank;
+
+	private DisjointSet(){}
 	
 	public static void makeSet(int size) {
 		parent = new int[size];
@@ -80,11 +83,17 @@ public class DisjointSet {
 	 */
 	public static int[] slowUnion(int element1, int element2) {
 		/**
-		 * Find the representative(root) of element1 and element2
+		 * Find the representatives(root) of element1 and element2
 		 */
 		int element1Rep = slowFind(element1);
 		int element2Rep = slowFind(element2);
-		
+
+		/**
+		 * If elements are in the same set, then no need to unite them
+		 */
+		if (element1Rep == element2Rep)
+			return parent;
+
 		/**
 		 * Make element2's representative as a parent of element1's representative(root)
 		 */
@@ -114,13 +123,16 @@ public class DisjointSet {
 		} else {
 			/**
 			 * If element is not a parent of itself,
-			 * then we need to find its parent recursively 
+			 * then we need to find its parent recursively
+			 *
+			 * Here We caching the result of find
 			 */
-			
 			int result = fastFind(parent[element]);
 			
 			/**
-			 *  We cache the result by moving i’s node directly under the representative of this set
+			 *  by moving the representative of this element directly
+			 *  under the representative of find above set to compress(minimize)
+			 *  the height of the tree
 			 */
 			parent[element] = result;
 
@@ -139,17 +151,45 @@ public class DisjointSet {
 	 * @param element2
 	 * @return parent array of elements after performing union
 	 */
-	public static void fastUnion(int element1, int element2) {
+	public static int[] fastUnion(int element1, int element2) {
 		/**
-		 * Find the representative(root) of element1 and element2
+		 * Find the representatives(root) of element1 and element2
 		 */
-		int element1Rep = slowFind(element1);
-		int element2Rep = slowFind(element2);
-		
+		int element1Rep = fastFind(element1);
+		int element2Rep = fastFind(element2);
+
 		/**
-		 * Make element2's representative as a parent of element1's representative(root)
+		 * If elements are in the same set, then no need to unite them
 		 */
-		parent[element1Rep] = element2Rep;
+		if (element1Rep == element2Rep)
+			return parent;
+
+		/**
+		 * If rank of element1's tree is less than the rank of element2's tree,
+		 * then we can't decrease the rank of greater tree, but if we make
+		 * representative(root) to smaller tree then we will increase its height(rank)
+		 *
+		 * so attach smaller rank tree under root of higher rank tree
+		 */
+		if (rank[element1] < rank[element2]) {
+			parent[element1] = element2;
+		} else if (rank[element2] < rank[element1]) {
+			parent[element2] = element1;
+		} else {
+			/**
+			 * If rank is similar then make one as root and increase its rank by one
+			 */
+			parent[element1] = element2;
+			rank[element2]++;
+		}
+
+		return parent;
 	}
-	
+
+	public static String printDisjointSet() {
+		return "DisjointSet{" +
+				"parent=" + Arrays.toString(parent) +
+				", rank=" + Arrays.toString(rank) +
+				"}";
+	}
 }
