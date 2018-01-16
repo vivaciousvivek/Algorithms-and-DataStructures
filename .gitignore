@@ -18,3 +18,5 @@ DSAndAlgos/DSAndAlgos.iml
 *.class
 *.prefs
 DSAndAlgos/.classpath
+/DSAndAlgos/.classpath
+/DSAndAlgos/.settings/org.eclipse.jdt.core.prefs
