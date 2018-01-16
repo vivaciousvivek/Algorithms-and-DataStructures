@@ -13,3 +13,6 @@ DSAndAlgos/.classpath
 DSAndAlgos/.classpath
 *.class
 DSAndAlgos/target/classes/META-INF/maven/com.techifrebase.daa/DSAndAlgos/pom.properties
+*.xml
+DSAndAlgos/DSAndAlgos.iml
+*.class
