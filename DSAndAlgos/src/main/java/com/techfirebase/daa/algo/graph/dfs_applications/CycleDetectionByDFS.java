@@ -105,7 +105,7 @@ public class CycleDetectionByDFS {
 		 * set the color green of vertex that is going to traverse
 		 */
 		visited[source] = VisitingColor.GREEN.getChar();
-		List<Integer> E = graph.getE()[source];
+		List<Integer> E = graph.getAdj()[source];
 
 		// this condition is required for directed graph
 		if (E != null) {

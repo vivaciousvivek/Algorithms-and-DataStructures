@@ -22,21 +22,21 @@ public class AdjacencyList {
     * For directed Graph
     */
     public static void addEdge(Graph graph, int from, int to, int weight) {
-        if (graph != null && graph.getE() != null) {
-            if (graph.getE()[from] == null) {
-                graph.getE()[from] = new LinkedList<>();
+        if (graph != null && graph.getAdj() != null) {
+            if (graph.getAdj()[from] == null) {
+                graph.getAdj()[from] = new LinkedList<>();
             }
 
-            graph.getE()[from].add(to);
+            graph.getAdj()[from].add(to);
 
             graph.getWeight()[from][to] = weight;
 
             if (graph.getGraphType() != null && GraphType.UNDIRECTED == graph.getGraphType()) {
-                if (graph.getE()[to] == null) {
-                    graph.getE()[to] = new LinkedList<>();
+                if (graph.getAdj()[to] == null) {
+                    graph.getAdj()[to] = new LinkedList<>();
                 }
 
-                graph.getE()[to].add(from);
+                graph.getAdj()[to].add(from);
 
                 graph.getWeight()[to][from] = weight;
             }

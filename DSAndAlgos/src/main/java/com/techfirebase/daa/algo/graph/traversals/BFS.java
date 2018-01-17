@@ -61,7 +61,7 @@ public class BFS {
             *  If a adjacent has not been visited, then color it green and enqueue it
             */
 
-            /*Iterator<Integer> i = graph.getE()[source].iterator();
+            /*Iterator<Integer> i = graph.getAdj()[source].iterator();
             while (i.hasNext()) {
                 int v = i.next();
                 if (visited[v] == VisitingColor.RED.getChar()) {
@@ -73,7 +73,7 @@ public class BFS {
 
             // using java 8
             int parent = source;
-            this.graph.getE()[source].stream()
+            this.graph.getAdj()[source].stream()
                     .filter(v -> visited[v] == VisitingColor.RED.getChar())
                     .map(v -> enqueue(v, parent))
                     .collect(Collectors.toList());

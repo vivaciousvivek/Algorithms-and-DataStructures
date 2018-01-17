@@ -87,7 +87,7 @@ public class DFS {
         *  If a adjacent has not been visited, then color it green and enqueue it
         */
 
-        List<Integer> E = this.graph.getE()[source];
+        List<Integer> E = this.graph.getAdj()[source];
 
         // this condition is required for directed graph
         if (E != null) {
@@ -102,7 +102,7 @@ public class DFS {
         }
 
         // using java 8
-        /*this.graph.getE()[source].stream()
+        /*this.graph.getAdj()[source].stream()
                 .filter(v -> visited[v] == VisitingColor.RED.getChar())
                 .map(v -> {
                     piArray[v] = source;

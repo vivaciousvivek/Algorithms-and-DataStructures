@@ -13,7 +13,10 @@ import com.techfirebase.daa.utils.constants.GraphType;
 public class Graph {
 
     private int V;
-    private List<Integer> E[];
+    /**
+     * contains all adjacency vertices of every vertex
+     */
+    private List<Integer> adj[];
     private int[][] weight;
     private GraphType graphType;
 
@@ -23,7 +26,7 @@ public class Graph {
 
     public Graph(int v, GraphType graphType) {
         V = v;
-        E = new LinkedList[V];
+        adj = new LinkedList[V];
         weight = new int[V][V];
         this.graphType = graphType;
     }
@@ -36,12 +39,12 @@ public class Graph {
         V = v;
     }
 
-    public List<Integer>[] getE() {
-        return E;
+    public List<Integer>[] getAdj() {
+        return adj;
     }
 
-    public void setE(List<Integer>[] e) {
-        E = e;
+    public void setAdj(List<Integer>[] adj) {
+        this.adj = adj;
     }
 
     public int[][] getWeight() {
@@ -64,7 +67,7 @@ public class Graph {
     public String toString() {
         return "Graph{" +
                 "V=" + V +
-                ", E=" + Arrays.toString(E) +
+                ", adj=" + Arrays.toString(adj) +
                 ", weight=" + Arrays.toString(weight) +
                 ", graphType=" + graphType +
                 '}';
