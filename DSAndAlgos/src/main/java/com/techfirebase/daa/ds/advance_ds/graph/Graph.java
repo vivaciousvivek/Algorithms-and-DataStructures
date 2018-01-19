@@ -9,67 +9,76 @@ import com.techfirebase.daa.utils.constants.GraphType;
 /**
  * @author VIVEK KUMAR SINGH
  * @since 18-12-2017
+ * 
+ * Graph DS implementation using Adjacency List structure
  */
 public class Graph {
 
-    private int V;
-    /**
-     * contains all adjacency vertices of every vertex
-     */
-    private List<Integer> adj[];
-    private int[][] weight;
-    private GraphType graphType;
+	/*
+	 * No of vertices in graph
+	 */
+	private int V;
+	/*
+	 * contains all adjacency vertices of every vertex
+	 */
+	private List<Integer>[] adj;
 
-    public Graph(int v) {
-        this(v, GraphType.UNDIRECTED);
-    }
+	/*
+	 * weight associated with every edge of adjacency list
+	 */
+	private int[][] weight;
 
-    public Graph(int v, GraphType graphType) {
-        V = v;
-        adj = new LinkedList[V];
-        weight = new int[V][V];
-        this.graphType = graphType;
-    }
+	/*
+	 * graph type: undirected or directed
+	 */
+	private GraphType graphType;
 
-    public int getV() {
-        return V;
-    }
+	public Graph(int v) {
+		this(v, GraphType.UNDIRECTED);
+	}
 
-    public void setV(int v) {
-        V = v;
-    }
+	public Graph(int v, GraphType graphType) {
+		V = v;
+		adj = new LinkedList[V];
+		weight = new int[V][V];
+		this.graphType = graphType;
+	}
 
-    public List<Integer>[] getAdj() {
-        return adj;
-    }
+	public int getV() {
+		return V;
+	}
 
-    public void setAdj(List<Integer>[] adj) {
-        this.adj = adj;
-    }
+	public void setV(int v) {
+		V = v;
+	}
 
-    public int[][] getWeight() {
-        return weight;
-    }
+	public List<Integer>[] getAdj() {
+		return adj;
+	}
 
-    public void setWeight(int[][] weight) {
-        this.weight = weight;
-    }
+	public void setAdj(List<Integer>[] adj) {
+		this.adj = adj;
+	}
 
-    public GraphType getGraphType() {
-        return graphType;
-    }
+	public int[][] getWeight() {
+		return weight;
+	}
 
-    public void setGraphType(GraphType graphType) {
-        this.graphType = graphType;
-    }
+	public void setWeight(int[][] weight) {
+		this.weight = weight;
+	}
 
-    @Override
-    public String toString() {
-        return "Graph{" +
-                "V=" + V +
-                ", adj=" + Arrays.toString(adj) +
-                ", weight=" + Arrays.toString(weight) +
-                ", graphType=" + graphType +
-                '}';
-    }
+	public GraphType getGraphType() {
+		return graphType;
+	}
+
+	public void setGraphType(GraphType graphType) {
+		this.graphType = graphType;
+	}
+
+	@Override
+	public String toString() {
+		return "Graph{" + "V=" + V + ", adj=" + Arrays.toString(adj) + ", weight=" + Arrays.toString(weight)
+				+ ", graphType=" + graphType + '}';
+	}
 }

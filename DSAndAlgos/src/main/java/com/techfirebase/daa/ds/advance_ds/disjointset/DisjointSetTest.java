@@ -1,15 +1,12 @@
 package com.techfirebase.daa.ds.advance_ds.disjointset;
 
-import com.techfirebase.daa.algo.graph.GraphObjects;
-import com.techfirebase.daa.ds.advance_ds.graph.Graph;
-
 /**
  * @author VIVEK KUMAR SINGH
  * @since 16-01-2018
  */
 public class DisjointSetTest {
     public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); 
 
         sb.append("*************Disjoint Set Test*************\n");
         DisjointSet.makeSet(10);

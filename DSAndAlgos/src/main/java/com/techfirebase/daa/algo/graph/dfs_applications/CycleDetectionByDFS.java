@@ -64,7 +64,7 @@ public class CycleDetectionByDFS {
 	}
 
 	public boolean cycleUtil() {
-		int cycleCount = 0;
+//		int cycleCount = 0;
 		/**
 		 * For a disconnected graph, we get the DFS forest, so put loop for those
 		 * different DFS trees
@@ -72,7 +72,7 @@ public class CycleDetectionByDFS {
 		for (int v = 0; v < visited.length; v++) {
 			if (visited[v] == VisitingColor.RED.getChar()) {
 				if (hasCycle(v)) {
-					cycleCount++;
+//					cycleCount++;
 					// won't print correct cycle, will try to do with some other algo(if exist)
 					printCycle();
 
@@ -85,11 +85,11 @@ public class CycleDetectionByDFS {
 			}
 		}
 
-		if (cycleCount > 0) {
-			System.out.println("\nCycles : " + cycleCount);
-		} else {
-			System.out.println("\nNo Cycle");
-		}
+//		if (cycleCount > 0) {
+//			System.out.println("\nCycles : " + cycleCount);
+//		} else {
+//			System.out.println("\nNo Cycle");
+//		}
 
 		return false;
 	}
