@@ -1,5 +1,7 @@
 package com.techfirebase.daa.algo.dp;
 
+import java.util.Arrays;
+
 /**
  * Problem Statement:
  * <p>
@@ -133,19 +135,25 @@ public class CoinExchange {
       return coins;
     }
     
-    public static int minimumCoinBySpaceOptimize(int[] deno, int rupee) {
+    /**
+     * 
+     * @param deno
+     * @param rupee
+     * @return
+     */
+    /*public static int minimumCoinBySpaceOptimize(int[] deno, int rupee) {
     	initialize(deno, rupee, true);
 
-        /*
+        
          * binary index used to index current row and previous row
-         */
+         
         int bi = 0;
 
         for (int i = 0; i <= m; i++) {
 
-            /*
+            
              * compute current binary index, by using bit and operator, if value of i is even
-             */
+             
             bi = i & 1;
 
             for (int j = 0; j <= n; j++) {
@@ -159,5 +167,45 @@ public class CoinExchange {
         }
 
         return lookupTable[bi][n];
+    }*/
+    
+    public static int minimumCoinByOneDArray(int[] deno, int rupee) {
+    	
+    	int[] lookupTable = new int[rupee + 1];
+    	int[] R = new int[rupee + 1];
+    	
+    	Arrays.fill(lookupTable, 1, lookupTable.length, Integer.MAX_VALUE - 1);
+    	Arrays.fill(R, -1);
+    	
+    	for (int i = 0; i < deno.length; i++) {
+    		for (int j = 0; j <= rupee; j++) {
+                
+    			/*
+    			 * If picked coin value is minimum than already exist value
+    			 */
+                if (denominations[i] <= j && (1 + lookupTable[j - denominations[i]] < lookupTable[j])) {
+//                	lookupTable[j] = Math.min(1 + lookupTable[j - denominations[i]], lookupTable[j]);
+                	lookupTable[j] = 1 + lookupTable[j - denominations[i]];
+                	R[j] = i;
+                }
+                
+            }
+        }
+    	
+    	/*
+    	 * Print picked coins
+    	 */
+    	int i = R.length - 1;
+    	
+    	while(i > 0) {
+    		int j = R[i];
+    		
+    		System.out.println("Picked coin: " + deno[j]);
+    		i -= deno[j];
+    	}
+    	
+    	
+		return lookupTable[rupee];
     }
+    
 }

@@ -114,18 +114,20 @@ public class DynamicProgrammingTest {
         
         int[] denominations;
 //        denominations = new int[] {1, 2, 3};
-        denominations = new int[] {25, 10, 5};
-//        denominations = new int[] {9, 6, 5, 1};
+//        denominations = new int[] {25, 10, 5};
+        denominations = new int[] {9, 6, 5, 1};
         sb.append("\n Denominations : ").append(Arrays.toString(denominations));
         
         int rupee;
-//        rupee = 5;
-        rupee = 30;
+        rupee = 5;
+//        rupee = 30;
 //        rupee = 11;
+        rupee = 12;
         sb.append("\n Rupee : ").append(rupee);
         
         sb.append("\n Start Time: ").append(LocalTime.now());
         sb.append("\n =====> Minimum Coins: ").append(CoinExchange.minimumCoins(denominations, rupee));
+        sb.append("\n =====> Minimum Coins By 1-D Array: ").append(CoinExchange.minimumCoinByOneDArray(denominations, rupee));
         sb.append("\n =====> Minimum Coins to pay given Rupee: ").append(Arrays.toString(CoinExchange.getMinimumCoins()));
         sb.append("\n End Time: ").append(LocalTime.now());
 
