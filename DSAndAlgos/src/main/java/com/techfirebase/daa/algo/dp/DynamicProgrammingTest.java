@@ -80,7 +80,7 @@ public class DynamicProgrammingTest {
         sb.append("\n =====> Length: ").append(LongestCommonSubsequence.lengthOfLCSBySpaceOptimize(str1, str2));
         sb.append("\n End Time: ").append(LocalTime.now());*/
 
-        sb.append("\n*************0-1 Knapsack*************\n");
+        /*sb.append("\n*************0-1 Knapsack*************\n");
 
         int[] weights;
         weights = new int[]{10, 20, 30};
@@ -101,14 +101,38 @@ public class DynamicProgrammingTest {
         sb.delete(0, sb.length());
 
         sb.append("\n Start Time: ").append(LocalTime.now());
-        sb.append("\n =====> Total Profit: ").append(ZeroOneKnapsack.maximumProfit(weights, values, capacity));
+        sb.append("\n =====> Maximum Profit: ").append(ZeroOneKnapsack.maximumProfit(weights, values, capacity));
         sb.append("\n =====> Weights give maximum Profit: ").append(Arrays.toString(ZeroOneKnapsack.getKnapsackWeights()));
         sb.append("\n End Time: ").append(LocalTime.now());
 
         sb.append("\n\n*************(((Optimized SC)))*************\n");
         sb.append("\n Start Time: ").append(LocalTime.now());
         sb.append("\n =====> Length: ").append(ZeroOneKnapsack.maximumProfitBySpaceOptimize(weights, values, capacity));
+        sb.append("\n End Time: ").append(LocalTime.now());*/
+        
+        sb.append("\n*************Coin Exchange*************\n");
+        
+        int[] denominations;
+//        denominations = new int[] {1, 2, 3};
+        denominations = new int[] {25, 10, 5};
+//        denominations = new int[] {9, 6, 5, 1};
+        sb.append("\n Denominations : ").append(Arrays.toString(denominations));
+        
+        int rupee;
+//        rupee = 5;
+        rupee = 30;
+//        rupee = 11;
+        sb.append("\n Rupee : ").append(rupee);
+        
+        sb.append("\n Start Time: ").append(LocalTime.now());
+        sb.append("\n =====> Minimum Coins: ").append(CoinExchange.minimumCoins(denominations, rupee));
+        sb.append("\n =====> Minimum Coins to pay given Rupee: ").append(Arrays.toString(CoinExchange.getMinimumCoins()));
         sb.append("\n End Time: ").append(LocalTime.now());
+
+//        sb.append("\n\n*************(((Optimized SC)))*************\n");
+//        sb.append("\n Start Time: ").append(LocalTime.now());
+//        sb.append("\n =====> Length: ").append(ZeroOneKnapsack.maximumProfitBySpaceOptimize(weights, values, capacity));
+//        sb.append("\n End Time: ").append(LocalTime.now());
 
         System.out.println(sb);
 		sb.delete(0, sb.length());

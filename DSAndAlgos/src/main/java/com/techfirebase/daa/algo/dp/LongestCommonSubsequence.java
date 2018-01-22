@@ -107,7 +107,7 @@ public class LongestCommonSubsequence {
     }
 
     /**
-     * Backtracking will work only with table of all rows, not for 2 rows memoization technique used in Space
+     * Backtracking will work only with table of all rows, not for 2 rows tabulation technique used in Space
      * optimization
      *
      * @return Longest Common Sub-sequence

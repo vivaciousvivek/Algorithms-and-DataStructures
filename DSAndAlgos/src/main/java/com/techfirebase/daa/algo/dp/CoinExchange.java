@@ -93,15 +93,71 @@ public class CoinExchange {
                 * First row and column represent the empty sub-sequence of length 0 so we initialize them with 0
                 * and also provide the value for the next sub-problems
                 */
-                if (i == 0 || j == 0)
+                if ((i == 0 && j == 0) || (i !=0 && j == 0))
                     lookupTable[i][j] = 0;
-                else if (denominations[i] <= j)
-                    lookupTable[i][j] = Math.max(1 + lookupTable[i][j - denominations[i]], lookupTable[i - 1][j]);
+                else if (i == 0 && j != 0)
+                	lookupTable[i][j] = j;
+                else if (denominations[i - 1] <= j)
+                    lookupTable[i][j] = Math.min(1 + lookupTable[i - 1][j - denominations[i - 1]], lookupTable[i - 1][j]);
                 else
                     lookupTable[i][j] = lookupTable[i - 1][j];
             }
         }
 
         return lookupTable[m][n];
+    }
+
+    /**
+     * Backtracking will work only with table of all rows, not for 2 rows tabulation technique used in Space
+     * optimization
+     *
+     * @return Coins of Denomination that will give the maximum profit
+     */
+    public static int[] getMinimumCoins() {
+      int i = m;
+      int j = n;
+
+      int[] coins = new int[m];
+
+      while (i > 0 && j > 0) {
+    	  /*
+    	   * If not coming from above row then it we had picked it otherwise not
+    	   */
+          if (lookupTable[i][j] != lookupTable[i - 1][j]) {
+              coins[i - 1] = denominations[i - 1];
+              j -= denominations[i - 1];
+          } else
+              i--;
+      }
+
+      return coins;
+    }
+    
+    public static int minimumCoinBySpaceOptimize(int[] deno, int rupee) {
+    	initialize(deno, rupee, true);
+
+        /*
+         * binary index used to index current row and previous row
+         */
+        int bi = 0;
+
+        for (int i = 0; i <= m; i++) {
+
+            /*
+             * compute current binary index, by using bit and operator, if value of i is even
+             */
+            bi = i & 1;
+
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0)
+                    lookupTable[bi][j] = 0;
+                else if (denominations[i - 1] <= j)
+                    lookupTable[bi][j] = Math.max((denominations[i - 1] + lookupTable[1 - bi][j - denominations[i - 1]]), lookupTable[1 - bi][j]);
+                else
+                    lookupTable[bi][j] = lookupTable[1 - bi][j];
+            }
+        }
+
+        return lookupTable[bi][n];
     }
 }
