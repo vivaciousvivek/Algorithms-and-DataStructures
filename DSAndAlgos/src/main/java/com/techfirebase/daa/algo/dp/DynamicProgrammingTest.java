@@ -110,18 +110,18 @@ public class DynamicProgrammingTest {
         sb.append("\n =====> Length: ").append(ZeroOneKnapsack.maximumProfitBySpaceOptimize(weights, values, capacity));
         sb.append("\n End Time: ").append(LocalTime.now());*/
         
-        sb.append("\n*************Coin Exchange*************\n");
+        /*sb.append("\n*************Coin Exchange*************\n");
         
         int[] denominations;
-        /*
+        
          * Ascending order
-         */
+         
 //        denominations = new int[] {1, 2, 3};
         denominations = new int[] {1, 5, 6, 9};
 
-        /*
+        
          * Descending order
-         */
+         
 //        denominations = new int[] {25, 10, 5};
 //        denominations = new int[] {9, 6, 5, 1};
 //        denominations = new int[] {1, 9, 5, 6};
@@ -146,10 +146,67 @@ public class DynamicProgrammingTest {
         sb.append("\n\n*************(((Optimized SC)))*************\n");
         sb.append("\n Start Time: ").append(LocalTime.now());
         sb.append("\n =====> Minimum Coins By 1-D Array: ").append(CoinExchange.minimumCoinByOneDArray(denominations, rupee));
+        sb.append("\n End Time: ").append(LocalTime.now());*/
+        
+        
+        /*sb.append("\n*************Cutting Rod*************\n");
+        
+        int[] values;
+        values = new int[] {2, 5, 7, 8};
+//        values = new int[] {1, 5, 8, 9, 10, 17, 17, 20};
+
+        sb.append("\n Prices of pieces of rods : ").append(Arrays.toString(values));
+        
+        int length;
+        length = 5;
+//        length = 8;
+
+        sb.append("\n Lenght of rod u want to sell : ").append(length);
+        
+        sb.append("\n Start Time: ").append(LocalTime.now());
+        sb.append("\n =====> Maximum Profit: ").append(CuttingRod.maximumProfit(values, length));
+        sb.append("\n =====> Peices to cut the given rod: ").append(Arrays.toString(CuttingRod.getMaximumProfit()));
         sb.append("\n End Time: ").append(LocalTime.now());
 
+        sb.append("\n\n*************(((Optimized SC)))*************\n");
+        sb.append("\n Start Time: ").append(LocalTime.now());
+		sb.append("\n =====> Maximum Profit By 1-D Array: ").append(CuttingRod.maximumProfitByOneDArray(values, length));
+		sb.append("\n End Time: ").append(LocalTime.now());
+		
+		sb.append("\n Start Time: ").append(LocalTime.now());
+		sb.append("\n =====> Peices to cut the given rod By 1-D Array: ");
         System.out.println(sb);
 		sb.delete(0, sb.length());
+		
+		CuttingRod.getMaximumProfitByOneDArray();
+		sb.append("\n End Time: ").append(LocalTime.now());*/
+
+        sb.append("\n*************Cutting Rod*************\n");
+        
+        int[] numbers;
+        numbers = new int[] {3, 34, 4, 12, 5, 2};
+
+        sb.append("\n Set of Positive integers : ").append(Arrays.toString(numbers));
+        
+        int sum;
+        sum = 9;
+
+        sb.append("\n Sum that we need to find : ").append(sum);
+        
+        sb.append("\n Start Time: ").append(LocalTime.now());
+        sb.append("\n =====> Is Sum exist by their subsets: ").append(SubsetSumProblem.isSubsetSum(numbers, sum));
+        sb.append("\n =====> Print the subset: ").append(Arrays.toString(CuttingRod.getMaximumProfit()));
+        sb.append("\n End Time: ").append(LocalTime.now());
+
+//        sb.append("\n\n*************(((Optimized SC)))*************\n");
+//        sb.append("\n Start Time: ").append(LocalTime.now());
+//		sb.append("\n =====> Maximum Profit By 1-D Array: ").append(CuttingRod.maximumProfitByOneDArray(numbers, sum));
+//		sb.append("\n =====> Peices to cut the given rod By 1-D Array: ");
+//		sb.append("\n End Time: ").append(LocalTime.now());
+		
+        System.out.println(sb);
+		sb.delete(0, sb.length());
+		
     }
 
 }
