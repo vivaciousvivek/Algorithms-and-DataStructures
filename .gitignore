@@ -20,3 +20,7 @@ DSAndAlgos/DSAndAlgos.iml
 DSAndAlgos/.classpath
 /DSAndAlgos/.classpath
 /DSAndAlgos/.settings/org.eclipse.jdt.core.prefs
+/DSAndAlgos/target/classes/META-INF/maven/com.techifrebase.daa/DSAndAlgos/pom.xml
+/DSAndAlgos/.classpath
+/DSAndAlgos/.settings/org.eclipse.jdt.core.prefs
+/DSAndAlgos/target/classes/META-INF/maven/com.techifrebase.daa/DSAndAlgos/pom.properties
