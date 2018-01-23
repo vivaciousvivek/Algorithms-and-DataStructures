@@ -6,8 +6,8 @@ import java.util.Arrays;
  * Problem Statement:
  * <p>
  * Given coins of denomination Denomination={d1, d2,.... dk} (infinite number of each type i.e we can take one
- * denomination more than one) in increasing order(d1<d2<d3..<dk), Find minimum no. of coins required to pay N
- * Rupee/value, order of coins doesn't matter
+ * denomination more than one) in any order, Find minimum no. of coins required to pay N Rupee/value, order of coins
+ * doesn't matter
  * <p>
  * Optimal Substructure:
  * <p>
@@ -81,8 +81,9 @@ public class CoinExchange {
      * <p>
      * TC: O(m*n), SC: O(m*n)
      *
-     * @param deno no. of denominations we have
+     * @param deno  no. of denominations we have
      * @param rupee how much money we need to exchange
+     *
      * @return minimum no. of coins to pay given rupee
      */
     public static int minimumCoins(int[] deno, int rupee) {
@@ -95,12 +96,12 @@ public class CoinExchange {
                 * First row and column represent the empty sub-sequence of length 0 so we initialize them with 0
                 * and also provide the value for the next sub-problems
                 */
-                if ((i == 0 && j == 0) || (i !=0 && j == 0))
+                if ((i == 0 && j == 0) || (i != 0 && j == 0))
                     lookupTable[i][j] = 0;
                 else if (i == 0 && j != 0)
-                	lookupTable[i][j] = j;
+                    lookupTable[i][j] = j;
                 else if (denominations[i - 1] <= j)
-                    lookupTable[i][j] = Math.min(1 + lookupTable[i - 1][j - denominations[i - 1]], lookupTable[i - 1][j]);
+                    lookupTable[i][j] = Math.min(1 + lookupTable[i][j - denominations[i - 1]], lookupTable[i - 1][j]);
                 else
                     lookupTable[i][j] = lookupTable[i - 1][j];
             }
@@ -116,96 +117,73 @@ public class CoinExchange {
      * @return Coins of Denomination that will give the maximum profit
      */
     public static int[] getMinimumCoins() {
-      int i = m;
-      int j = n;
+        int i = m;
+        int j = n;
 
-      int[] coins = new int[m];
+        int[] coins = new int[m];
 
-      while (i > 0 && j > 0) {
-    	  /*
-    	   * If not coming from above row then it we had picked it otherwise not
+        while (i > 0 && j > 0) {
+          /*
+           * If not coming from above row then it we had picked it otherwise not
     	   */
-          if (lookupTable[i][j] != lookupTable[i - 1][j]) {
-              coins[i - 1] = denominations[i - 1];
-              j -= denominations[i - 1];
-          } else
-              i--;
-      }
-
-      return coins;
-    }
-    
-    /**
-     * 
-     * @param deno
-     * @param rupee
-     * @return
-     */
-    /*public static int minimumCoinBySpaceOptimize(int[] deno, int rupee) {
-    	initialize(deno, rupee, true);
-
-        
-         * binary index used to index current row and previous row
-         
-        int bi = 0;
-
-        for (int i = 0; i <= m; i++) {
-
-            
-             * compute current binary index, by using bit and operator, if value of i is even
-             
-            bi = i & 1;
-
-            for (int j = 0; j <= n; j++) {
-                if (i == 0 || j == 0)
-                    lookupTable[bi][j] = 0;
-                else if (denominations[i - 1] <= j)
-                    lookupTable[bi][j] = Math.max((denominations[i - 1] + lookupTable[1 - bi][j - denominations[i - 1]]), lookupTable[1 - bi][j]);
-                else
-                    lookupTable[bi][j] = lookupTable[1 - bi][j];
-            }
+            if (lookupTable[i][j] != lookupTable[i - 1][j]) {
+                coins[i - 1] = denominations[i - 1];
+                j -= denominations[i - 1];
+            } else
+                i--;
         }
 
-        return lookupTable[bi][n];
-    }*/
-    
+        return coins;
+    }
+
+    /**
+     * The 2D array will fail when we have very large no. of input n=10^5, m=10^4, as we don't have this much space 1D
+     * <p>
+     * Then use this Array approach improves the SC: O(n)
+     *
+     * @param deno
+     * @param rupee
+     *
+     * @return
+     */
     public static int minimumCoinByOneDArray(int[] deno, int rupee) {
-    	
-    	int[] lookupTable = new int[rupee + 1];
-    	int[] R = new int[rupee + 1];
-    	
-    	Arrays.fill(lookupTable, 1, lookupTable.length, Integer.MAX_VALUE - 1);
-    	Arrays.fill(R, -1);
-    	
-    	for (int i = 0; i < deno.length; i++) {
-    		for (int j = 0; j <= rupee; j++) {
+
+        int[] lookupTable = new int[rupee + 1];
+        int[] R = new int[rupee + 1];
+
+        Arrays.fill(lookupTable, 1, lookupTable.length, Integer.MAX_VALUE);
+        Arrays.fill(R, -1);
+
+        for (int i = 0; i < deno.length; i++) {
+            for (int j = 0; j <= rupee; j++) {
                 
     			/*
-    			 * If picked coin value is minimum than already exist value
+                 * If picked coin value is minimum than already exist value
     			 */
                 if (denominations[i] <= j && (1 + lookupTable[j - denominations[i]] < lookupTable[j])) {
-//                	lookupTable[j] = Math.min(1 + lookupTable[j - denominations[i]], lookupTable[j]);
-                	lookupTable[j] = 1 + lookupTable[j - denominations[i]];
-                	R[j] = i;
+                    lookupTable[j] = 1 + lookupTable[j - denominations[i]];
+                    R[j] = i;
                 }
-                
+
             }
         }
     	
     	/*
     	 * Print picked coins
     	 */
-    	int i = R.length - 1;
-    	
-    	while(i > 0) {
-    		int j = R[i];
-    		
-    		System.out.println("Picked coin: " + deno[j]);
-    		i -= deno[j];
-    	}
-    	
-    	
-		return lookupTable[rupee];
+        int i = R.length - 1;
+
+        System.out.println("\n=========================================");
+        while (i > 0) {
+            int j = R[i];
+
+            System.out.println("Picked coin By 1D Array: " + deno[j]);
+            i -= deno[j];
+        }
+
+        System.out.println("\n=========================================");
+
+        return lookupTable[rupee];
     }
-    
+
 }
