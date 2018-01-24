@@ -2,6 +2,7 @@ package com.techfirebase.daa.algo.dp;
 
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @author VIVEK KUMAR SINGH
@@ -182,17 +183,17 @@ public class DynamicProgrammingTest {
 		sb.append("\n End Time: ").append(LocalTime.now());*/
 
         sb.append("\n*************Cutting Rod*************\n");
-        
+
         int[] numbers;
         numbers = new int[] {3, 34, 4, 12, 5, 2};
 
         sb.append("\n Set of Positive integers : ").append(Arrays.toString(numbers));
-        
+
         int sum;
         sum = 9;
 
         sb.append("\n Sum that we need to find : ").append(sum);
-        
+
         sb.append("\n Start Time: ").append(LocalTime.now());
         sb.append("\n =====> Is Sum exist by their subsets: ").append(SubsetSumProblem.isSubsetSum(numbers, sum));
         sb.append("\n =====> Print the subset: ").append(Arrays.toString(CuttingRod.getMaximumProfit()));
@@ -203,6 +204,25 @@ public class DynamicProgrammingTest {
 //		sb.append("\n =====> Maximum Profit By 1-D Array: ").append(CuttingRod.maximumProfitByOneDArray(numbers, sum));
 //		sb.append("\n =====> Peices to cut the given rod By 1-D Array: ");
 //		sb.append("\n End Time: ").append(LocalTime.now());
+
+        sb.append("\n*************Longest Palindrome Subsequence*************\n");
+
+        sb.append("\n Enter sequence :\n");
+        System.out.println(sb);
+        sb.delete(0, sb.length());
+
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.next();
+
+        sb.append("\n Start Time: ").append(LocalTime.now());
+        sb.append("\n =====> Length: ").append(LongestPalindromeSubsequence.lengthOfLPS(str1));
+        sb.append("\n =====> LPS: ").append(Arrays.toString(LongestPalindromeSubsequence.getLPS()));
+        sb.append("\n End Time: ").append(LocalTime.now());
+
+//        sb.append("\n\n*************(((Optimized SC)))*************\n");
+//        sb.append("\n Start Time: ").append(LocalTime.now());
+//        sb.append("\n =====> Length: ").append(LongestCommonSubsequence.lengthOfLCSBySpaceOptimize(str1, str2));
+//        sb.append("\n End Time: ").append(LocalTime.now());
 		
         System.out.println(sb);
 		sb.delete(0, sb.length());
