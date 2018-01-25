@@ -79,6 +79,9 @@ public class LongestPalindromeSubsequence {
 
         initialize(s1, false);
 
+        /*
+         * Length of LPS will be 1, when there is single character
+         */
         for (int i = 0; i < m; i++) {
             lookupTable[i][i] = 1;
         }
