@@ -27,6 +27,10 @@ package com.techfirebase.daa.algo.dp;
  * <p>
  * Optimal Substructure:
  * <p>
+ * MCM(i,j) = Minimum of(MCM(i,k) + MCM(k+1,j) + dimensions[i-1]*dimensions[k]*dimensions[j]) - minimum of every first split combinations of n matrices
+ * 
+ * entry: minimum cost of first i and j matrices multiplication, i: first ith matrices, j: first jth matrices, k: splits of first n numbers (n-1 split possible for every combination) 
+ * 
  * To calculate the minimum cost
  *
  * @author VIVEK KUMAR SINGH
@@ -42,6 +46,11 @@ public class MatrixChainMultiplication {
      * use to hold the given dimensions of matrices
      */
     private static int[] p;
+    
+    /*
+     * use to backtrack to find matrices with minimum cost
+     */
+    private static int[][] backtrack;
 
     /*
      * use to hold the size of both sequences
@@ -60,11 +69,19 @@ public class MatrixChainMultiplication {
         */
         if (isSpaceOptimize)
             lookupTable = new int[2][m];
-        else
+        else {
             lookupTable = new int[m][m];
+            backtrack = new int[m][m];
+        }
     }
 
     /**
+     * 
+     * TC: O(n^3) - as there are n^2 entries we need to compute and to compute every entry O(n) time is taken
+     * (for every entry we need to split it into n-1 partitions) 
+     * 
+     * SC: O(n^2)
+     * 
      * @param dimensions
      *
      * @return
@@ -119,7 +136,12 @@ public class MatrixChainMultiplication {
                  * maximum split possible from 1 to n-1(i.e if we have 4 matrices then we can split it from 1-3
                  */
                 for (int k = i; k <= j; k++) {
-                    lookupTable[i-1][j] = Math.min(lookupTable[i-1][k-1] + lookupTable[k][j] + p[i-1] * p[k] * p[j+1], lookupTable[i-1][j]);
+//                    lookupTable[i-1][j] = Math.min(lookupTable[i-1][k-1] + lookupTable[k][j] + p[i-1] * p[k] * p[j+1], lookupTable[i-1][j]);
+                	int q = lookupTable[i-1][k-1] + lookupTable[k][j] + p[i-1] * p[k] * p[j+1];
+                	if(q < lookupTable[i-1][j]) {
+                		lookupTable[i-1][j] = q;
+                		backtrack[i-1][j] = k;
+                	}
                 }
             }
         }

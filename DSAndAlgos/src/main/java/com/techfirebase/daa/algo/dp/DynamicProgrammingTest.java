@@ -2,7 +2,6 @@ package com.techfirebase.daa.algo.dp;
 
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * @author VIVEK KUMAR SINGH
@@ -234,7 +233,6 @@ public class DynamicProgrammingTest {
 
         sb.append("\n Start Time: ").append(LocalTime.now());
         sb.append("\n =====> Minimum Cost of MCM : ").append(MatrixChainMultiplication.minimumCostOfMCM(dimensions));
-//        sb.append("\n =====> Print the subset: ").append(Arrays.toString(CuttingRod.getMaximumProfit()));
         sb.append("\n End Time: ").append(LocalTime.now());
 
 //        sb.append("\n\n*************(((Optimized SC)))*************\n");
