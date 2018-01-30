@@ -31,7 +31,7 @@ public class TreeTest {
         BinaryTree.addNode(4, leafNode1, Position.LEFT);
         BinaryTree.addNode(5, leafNode1, Position.RIGHT);*/
 
-        // 2nd tree
+        // 2nd tree(Left Skew tree)
         /*
          * Intermediate Nodes
          */
@@ -39,12 +39,12 @@ public class TreeTest {
         Node interNode2 = BinaryTree.addNode(3, interNode1, Position.LEFT);
         Node interNode3 = BinaryTree.addNode(4, interNode2, Position.LEFT);
 
-        *//*
-         * Leaf Nodes
-         *//*
+
+        // Leaf Nodes
+
         BinaryTree.addNode(5, interNode3, Position.LEFT);*/
 
-        // 3rd tree
+        // 3rd tree(Right Skew tree)
         /*
          * Intermediate Nodes
          */
@@ -84,6 +84,7 @@ public class TreeTest {
         BinaryTree.addNode(6, interNode2, Position.LEFT);*/
 
         sb.append("\nBinary Tree :\n").append(rootNode);
+
         /*sb.append("\n\n Height of Binary Tree : ").append(BinaryTree.heightOfBinaryTree(rootNode));
         System.out.println(sb);
         sb.delete(0, sb.length());
@@ -127,22 +128,37 @@ public class TreeTest {
         System.out.println(sb);
         sb.delete(0, sb.length());
 
-        BinaryTree.postOrderTraversalIterative(rootNode);*/
+        BinaryTree.postOrderTraversalIterative(rootNode);
 
-        sb.append("\n\n Unique Binary Tree from InOrderTraversal and PreOrderTraversal :\n");
-
-        int[] preOrderTraversal;
-        preOrderTraversal = new int[]{1, 2, 4, 5, 3};
-
-        int[] inOrderTraversal;
-        inOrderTraversal = new int[]{4, 2, 5, 1, 3};
-
-        BinaryTree.setNode(null);
-        sb.append(BinaryTree.isUniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, 0,
-                inOrderTraversal.length, 0));
-        sb.append("\n Binary Tree : ").append(BinaryTree.getNode());
+        sb.append("\n\n Level Order Traversal of Binary Tree :\n");
         System.out.println(sb);
         sb.delete(0, sb.length());
+
+        BinaryTree.levelOrderTraversal(rootNode);*/
+
+        /*sb.append("\n\n Unique Binary Tree from InOrderTraversal and PreOrderTraversal :\n");
+
+        int[] inOrderTraversal;
+//        inOrderTraversal = new int[]{4, 2, 5, 1, 3};
+//        inOrderTraversal = new int[]{1, 2, 3, 4, 5};
+        inOrderTraversal = new int[]{5, 4, 3, 2, 1};
+
+        int[] preOrderTraversal;
+        preOrderTraversal = new int[]{1, 2, 3, 4, 5};
+
+        sb.append("\n ").append(BinaryTree.uniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, 0,
+                inOrderTraversal.length - 1));
+
+        sb.append("\n\n Unique Binary Tree from InOrderTraversal and PostOrderTraversal :\n");
+
+        int[] postOrderTraversal;
+        postOrderTraversal = new int[]{5, 4, 3, 2, 1};
+
+        BinaryTree.setPostIndex(inOrderTraversal.length);
+        sb.append("\n ").append(BinaryTree.uniqueTreeByInAndPostOrder(inOrderTraversal, postOrderTraversal, 0,
+                inOrderTraversal.length - 1));
+        System.out.println(sb);
+        sb.delete(0, sb.length());*/
 
     }
 

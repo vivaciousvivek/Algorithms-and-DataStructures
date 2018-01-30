@@ -2,7 +2,8 @@ package com.techfirebase.daa.ds.advance_ds.tree;
 
 import com.techfirebase.daa.utils.constants.Position;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -11,16 +12,18 @@ import java.util.Stack;
  */
 public class BinaryTree {
     static Node node;
+    private static int preIndex = 0;
+    private static int postIndex;
 
     private BinaryTree() {
     }
 
-    public static Node getNode() {
-        return node;
+    public static int getPostIndex() {
+        return postIndex;
     }
 
-    public static void setNode(Node node) {
-        BinaryTree.node = node;
+    public static void setPostIndex(int postIndex) {
+        BinaryTree.postIndex = postIndex;
     }
 
     /**
@@ -79,6 +82,10 @@ public class BinaryTree {
     /**
      * Height of a binary tree could be between logn(minimum height, when tree is complete binary tree) to n-1(maximum
      * height, when tree is skew tree(having one child of every node))
+     * <p>
+     * height is from bottom to top(parent of left and right sub tree)
+     * <p>
+     * So height of the leaf node is 0 and height of parent is max of left and right sub tree
      *
      * @param binaryTree
      *
@@ -98,6 +105,19 @@ public class BinaryTree {
             return Math.max(heightOfBinaryTree(binaryTree.getLeftChild()),
                     heightOfBinaryTree(binaryTree.getRightChild())) + 1;
         }
+    }
+
+    /**
+     * level is from top to bottom(parent to left and right sub tree)
+     * <p>
+     * So level of root node is 0 and for next level add 1
+     *
+     * @param binaryTree
+     *
+     * @return
+     */
+    public static int levelOfBinaryTree(Node binaryTree) {
+        return 0;
     }
 
     /**
@@ -165,15 +185,6 @@ public class BinaryTree {
         postOrderTraversal(binaryTree.getLeftChild());
         postOrderTraversal(binaryTree.getRightChild());
         System.out.print(" " + binaryTree.getData() + " =>");
-    }
-
-    /**
-     * Level order traversal traverse the tree level by level i.e BFS traversal
-     *
-     * @param binaryTree
-     */
-    public static void levelOrderTraversal(Node binaryTree) {
-
     }
 
     /**
@@ -272,38 +283,107 @@ public class BinaryTree {
         } while (!binaryTreeStack.isEmpty() || binaryTree != null);
     }
 
-    public static boolean isUniqueTreeByInAndPreOrder(int[] inOrderTraversal, int[] preOrderTraversal, int start,
-                                                      int end, int preIndex) {
+    /**
+     * In Level order traversal, traverse the tree level by level i.e BFS traversal
+     *
+     * @param binaryTree
+     */
+    public static void levelOrderTraversal(Node binaryTree) {
+        Queue<Node> binaryTreeQueue = new LinkedList<>();
+        binaryTreeQueue.add(binaryTree);
+
+        while (!binaryTreeQueue.isEmpty()) {
+            binaryTree = binaryTreeQueue.poll();
+            System.out.print(" " + binaryTree.getData() + " =>");
+
+            /*
+             * Enqueue Right Child
+             */
+            if (binaryTree.getRightChild() != null)
+                binaryTreeQueue.add(binaryTree.getLeftChild());
+
+            /*
+             * Enqueue Left Child
+             */
+            if (binaryTree.getLeftChild() != null) {
+                binaryTreeQueue.add(binaryTree.getRightChild());
+            }
+        }
+    }
+
+    /**
+     * @param inOrderTraversal
+     * @param preOrderTraversal
+     * @param start
+     * @param end
+     *
+     * @return
+     */
+    public static Node uniqueTreeByInAndPreOrder(int[] inOrderTraversal, int[] preOrderTraversal, int start,
+                                                 int end) {
 
         if (start > end)
-            return false;
+            return null;
 
         Node newNode = new Node(preOrderTraversal[preIndex++]);
 
         int inIndex = searchInOrderIndex(inOrderTraversal, start, end, newNode.getData());
 
+        /*
+         * when data is not correct/match of Inorder tree and the node in other traversal(i.e not found in Inorder
+         * traversal) then return relevant exception
+         */
+        if (inIndex == -1) {
+            System.err.println("\nData of Inorder and Preorder traversal is mismatch");
+            return newNode;
+        }
+
         if (start == end)
-            return true;
+            return newNode;
 
-        isUniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, start, inIndex, preIndex);
-        node.setLeftChild(newNode);
-        isUniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, inIndex + 1, end, preIndex);
-        node.setRightChild(newNode);
+        newNode.setLeftChild(uniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, start, inIndex - 1));
+        newNode.setRightChild(uniqueTreeByInAndPreOrder(inOrderTraversal, preOrderTraversal, inIndex + 1, end));
 
-        return false;
+        return newNode;
     }
 
-    private static int searchInOrderIndex(int[] inOrderTraversal, int start, int end, int preOrderValue) {
-        for (int i = start; i < end; i++) {
-            if (preOrderValue == inOrderTraversal[i])
+    public static Node uniqueTreeByInAndPostOrder(int[] inOrderTraversal, int[] postOrderTraversal, int start,
+                                                  int end) {
+        if (start > end)
+            return null;
+
+        Node newNode = new Node(postOrderTraversal[--postIndex]);
+
+        int inIndex = searchInOrderIndex(inOrderTraversal, start, end, newNode.getData());
+
+        /*
+         * when data is not correct/match of Inorder tree and the node in other traversal(i.e not found in Inorder
+         * traversal) then return relevant exception
+         */
+        if (inIndex == -1) {
+            System.err.println("\nData of Inorder and Postorder traversal is mismatch");
+            return newNode;
+        }
+
+        if (start == end)
+            return newNode;
+
+        newNode.setRightChild(uniqueTreeByInAndPostOrder(inOrderTraversal, postOrderTraversal, inIndex + 1, end));
+        newNode.setLeftChild(uniqueTreeByInAndPostOrder(inOrderTraversal, postOrderTraversal, start, inIndex - 1));
+
+        return newNode;
+    }
+
+    private static int searchInOrderIndex(int[] inOrderTraversal, int start, int end, int nodeValue) {
+        for (int i = start; i <= end; i++) {
+            if (nodeValue == inOrderTraversal[i])
                 return i;
         }
 
-        return 0;
-    }
-
-    public static boolean isUniqueTreeByInAndPostOrder(int[] inOrderTraversal, int[] postOrderTraversal) {
-
-        return false;
+        /*
+         * when data is not correct/match of Inorder tree and the node in other traversal(i.e not found in Inorder
+         * traversal) then return -1
+         */
+        return -1;
     }
 }
