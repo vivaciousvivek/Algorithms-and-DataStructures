@@ -11,7 +11,7 @@ import java.util.Stack;
  * @since 27-01-2018
  */
 public class BinaryTree {
-    static Node node;
+    private static Node node;
     private static int preIndex = 0;
     private static int postIndex;
 
