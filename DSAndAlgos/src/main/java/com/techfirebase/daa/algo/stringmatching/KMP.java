@@ -87,6 +87,8 @@ public class KMP {
    * <p>If there is no match till 0 so we can't go backword any more then we need to increment i and
    * start the whole process again till we got the match or till last character of the Text String.
    *
+   * <p>TC: O(T + P) Sum of length of the Text and Pattern. i.e. in linear time.
+   *
    * @param text
    * @param pattern
    * @return
